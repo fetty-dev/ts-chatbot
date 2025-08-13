@@ -1,3 +1,4 @@
+// Main entry point
 import 'dotenv/config';
 import { Client } from 'discord.js';
 

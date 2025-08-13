@@ -1,0 +1,1 @@
+// MongoDB Schema definition for user memory
