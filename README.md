@@ -2,6 +2,8 @@
 ```
 └── 📁ts-bot
     └── 📁.github
+        └── 📁workflows
+            ├── ci.yml
     └── 📁docs
         ├── claude-instructions.md
     └── 📁src
@@ -24,7 +26,6 @@
             ├── logger.ts
             ├── validation.ts
         ├── index.ts
-    ├── .env
     ├── .env.example
     ├── .gitignore
     ├── CLAUDE.md
