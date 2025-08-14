@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a TypeScript Discord bot built with discord.js v14. The project uses a simple, clean architecture with minimal setup - perfect for rapid bot development and prototyping.
+This is a TypeScript Discord bot built with discord.js v14 and Anthropic Claude API integration. The project features a modular architecture with persistent user memory storage via MongoDB and an "Albedo" chatbot personality system.
 
 ## Development Commands
 
@@ -27,19 +27,27 @@ This is a TypeScript Discord bot built with discord.js v14. The project uses a s
 ## Project Architecture
 
 ### Core Structure
-- `src/index.ts` - Main entry point with basic Discord client setup
+- `src/index.ts` - Main entry point with Discord client setup and database connection
 - `src/bot/` - Discord client configuration and event handling
 - `src/database/` - MongoDB connection and Mongoose models
-- `src/services/` - Business logic for Claude integration, memory, and personality
+- `src/services/` - Business logic for Claude integration, memory management, and personality
 - `src/types/` - TypeScript interfaces for user memory, messages, and configuration
-- `src/utils/` - Utilities for logging, validation, and constants
+- `src/utils/` - Utilities for logging, validation, constants, and token estimation
 
 ### Key Dependencies
+- **@anthropic-ai/sdk** - Official Anthropic Claude API client
 - **discord.js v14** - Discord API wrapper with full typing support
 - **mongoose v8** - MongoDB object modeling with schema validation
 - **TypeScript v5** - Full type safety with strict mode enabled
 - **Jest** - Testing framework with TypeScript support via ts-jest
 - **ESLint** - Code linting with TypeScript-specific rules
+
+### Claude API Integration
+The bot uses Anthropic's official SDK with:
+- Model: claude-3-5-sonnet-20241022 (configurable via `CLAUDE_CONFIG`)
+- Temperature: 0.7 for balanced creativity/consistency
+- Token management with daily limits and owner privileges
+- Personality system integration via `buildAlbedoContext()`
 
 ### Discord.js Setup
 The bot is configured with these intents:
@@ -51,14 +59,17 @@ The bot is configured with these intents:
 
 ### Database Architecture
 Uses MongoDB with Mongoose for user memory persistence:
-- `UserMemory` model tracks relationship levels, personal details, and interaction history
-- `EmotionalMoment` interface for significant emotional events
-- `RecentMessage` interface for conversational context
+- `UserMemory` model tracks relationship levels (0-100), personal details, and interaction history
+- `EmotionalMoment` interface for significant emotional events with intensity (1-10)
+- `RecentMessage` interface for conversational context with token tracking
+- Configurable limits for memory retention (max 20 personal details, 8 recent messages)
 
 ### Environment Configuration
-- Bot token expected in `TOKEN` environment variable
-- Uses dotenv for automatic .env file loading
-- Database connection string for MongoDB
+Required environment variables:
+- `TOKEN` - Discord bot token
+- `ANTHROPIC_API_KEY` - Anthropic Claude API key
+- `MONGODB_URI` - MongoDB connection string
+- `OWNER_ID` - Discord ID of bot owner (for enhanced privileges)
 
 ## Development Workflow
 
@@ -82,7 +93,9 @@ For complex features, use the multi-agent strategy to handle different component
 - ES2022 target with CommonJS modules
 - All code compiled to `dist/` directory
 - Environment-based configuration pattern established
+- Comprehensive type definitions in `src/types/index.ts`
+- Modular service architecture with clear separation of concerns
 
 ## Bot Token Security
 
-The bot expects a Discord token in the `TOKEN` environment variable. Never commit tokens to the repository - use .env files that are properly gitignored.
+The bot expects Discord and Anthropic tokens in environment variables. Never commit tokens to the repository - use .env files that are properly gitignored.
