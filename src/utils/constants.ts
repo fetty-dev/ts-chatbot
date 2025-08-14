@@ -56,3 +56,23 @@ export const LIMITS = {
     MAX_PERSONAL_DETAIL_LENGTH: 200,        // Max allowed length for stored personal details
     MAX_EMOTIONAL_SUMMARY_LENGTH: 300,      // Max allowed length for emotional summaries
 };
+
+/**
+ * Anthropic Claude API configuration
+ * Model selection and response parameters for optimal chatbot behavior
+ */
+export const CLAUDE_CONFIG = {
+    model: 'claude-sonnet-4-20250514',      // Latest Claude model
+    maxTokens: 1000,                        // Response length limit
+    temperature: 0.7,                       // Controls randomness of responses
+    apiTimeout: 30000,                      // API request timeout (30 seconds)
+};
+
+/**
+ * Token estimation constants for usage tracking
+ * Based on typical English text token ratios
+ */
+export const TOKEN_CONFIG = {
+    charactersPerToken: 4,                  // Rough approximation for english
+    maxContextToken: 8000,                  // Context window limit
+};

@@ -64,3 +64,16 @@ export function validateUserInput(input: string): boolean {
 export function sanitizeUserInput(input: string): string {
     return input.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
 }
+
+/**
+ * Estimate token count for text (rough approximation for usage tracking).
+ * Uses industry standard ~4 characters per token for English text.
+ * 
+ * @param text - Text to estimate tokens for
+ * @returns Estimated token count
+ */
+export function estimateTokens(text: string): number {
+    const { charactersPerToken } = require('./constants').TOKEN_CONFIG;
+    return Math.ceil(text.length / charactersPerToken);
+}
+
