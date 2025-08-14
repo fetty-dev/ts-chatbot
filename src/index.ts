@@ -1,19 +1,25 @@
 // Main entry point
 import 'dotenv/config';
 import { Client } from 'discord.js';
+import { connectDatabase } from './database/connection';
 
-const client = new Client({
-    intents: [
-        'Guilds',
-        'GuildMessages',
-        'GuildMembers',
-        'MessageContent',
-        'GuildPresences',
-    ],
-});
+async function startBot() {
+    await connectDatabase();
+    const client = new Client({
+        intents: [
+            'Guilds',
+            'GuildMessages',
+            'MessageContent',
+            'GuildMembers',
+            'GuildPresences',
+        ],
+    });
 
-client.on('ready', (c) => {
-    console.log(`${c.user.username} is online! 🎉`);
-});
+    client.on('ready', (c) => {
+        console.log(`🤖 ${c.user.username} is online! 🎉`);
+    });
 
-client.login(process.env.TOKEN)
+    await client.login(process.env.TOKEN);
+}
+
+startBot().catch(console.error);
