@@ -37,7 +37,7 @@ export interface EmotionalMoment {
     type: 'positive' | 'negative' | 
     'significant';                          // Coarse sentiment/category label
     summary: string;                        // Short description (e.g., "Got a new job")
-    intesity: number;                       // 1-10 intensity scale
+    intensity: number;                      // 1-10 intensity scale
 }
 /**
  * Minimal message pair kept for short term conversational context
