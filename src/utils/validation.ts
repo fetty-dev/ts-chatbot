@@ -77,3 +77,17 @@ export function estimateTokens(text: string): number {
     return Math.ceil(text.length / charactersPerToken);
 }
 
+/**
+ * Validate Discord user ID format (snowflake - 17-19 digits)
+ */
+export function validateUserId(userId: string): boolean {
+    return /^\d{17,19}$/.test(userId);
+}
+
+/**
+ * Validate Discord username format
+ */
+export function validateUserName(userName: string): boolean {
+    return userName.length > 0 && userName.length <= LIMITS.MAX_USERNAME_LENGTH;
+}
+
