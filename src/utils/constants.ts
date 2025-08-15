@@ -12,6 +12,7 @@ import { BotConfig, DatabaseConfig } from '../types';
  */
 export const BOT_CONFIG: BotConfig = {
     ownerId: process.env.OWNER_ID || '',    // Discord ID of the bot owner
+    channelId: process.env.CHANNEL_ID || '',// Discord channel ID where bot operates
     maxRecentMessages: 8,                   // Number of recent messages to store for context
     maxEmotionalMoments: 15,                // Max number of emotional moments tracked 
     maxPersonalDetails: 20,                 // Max number of personal details tracked
@@ -75,4 +76,16 @@ export const CLAUDE_CONFIG = {
 export const TOKEN_CONFIG = {
     charactersPerToken: 4,                  // Rough approximation for english
     maxContextToken: 8000,                  // Context window limit
+};
+
+/**
+ * Token optimization settings for cost efficiency
+ * Controls global optimization behavior
+ */
+export const OPTIMIZATION_CONFIG = {
+    enabled: true,                          // Enable token optimizations globally
+    level: 'balanced' as const,             // Default optimization level
+    logAnalytics: true,                     // Log token usage analytics
+    costAlertThreshold: 0.05,               // Alert when daily cost exceeds $0.05
+    dailyCostLimit: 0.10,                   // Daily cost limit in USD
 };

@@ -76,6 +76,7 @@ export interface DatabaseConfig {
  */
 export interface BotConfig {
     ownerId: string;                        // Discord ID of the bot owner
+    channelId: string;                      // Discord channel ID where bot operates
     maxRecentMessages: number;              // Max items in RecentMessage context window
     maxEmotionalMoments: number;            // Cap on EmotionalMoment records retained
     maxPersonalDetails: number;             // Cap on stored personal facts
