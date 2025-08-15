@@ -83,5 +83,3 @@ npm run lint
 - Ready for Discord message handler integration
 
 ---
-
-*Built with Claude Code assistance for rapid development and clean architecture*

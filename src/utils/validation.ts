@@ -34,6 +34,7 @@ export function validateEnvironment(): void {
         'ANTHROPIC_API_KEY',
         'MONGODB_URI',
         'OWNER_ID',
+        'CHANNEL_ID',
     ];
     for (const env of required) {
         if (!process.env[env]) {
