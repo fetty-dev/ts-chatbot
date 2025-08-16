@@ -10,7 +10,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import type { UserMemory } from '../types';
 import { CLAUDE_CONFIG } from '../utils/constants';
-import { estimateTokens } from '../utils/validation';
 import { buildAlbedoContext } from './personality';
 import { optimizeMemoryContext, calculateTokenAnalytics, getOptimizedClaudeConfig } from './tokenOptimizer';
 import { logger } from '../utils/logger';

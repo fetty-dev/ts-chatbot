@@ -157,7 +157,7 @@ function evaluateChannelRules(
     const { channelId } = baseResult;
     
     switch (config.mode) {
-        case 'whitelist':
+        case 'whitelist': {
             const isWhitelisted = config.allowedChannels.includes(channelId);
             return {
                 ...baseResult,
@@ -167,8 +167,9 @@ function evaluateChannelRules(
                     : 'Channel is not in whitelist',
                 ruleApplied: 'whitelist_check'
             };
+        }
             
-        case 'blacklist':
+        case 'blacklist': {
             const isBlacklisted = config.blockedChannels.includes(channelId);
             return {
                 ...baseResult,
@@ -178,6 +179,7 @@ function evaluateChannelRules(
                     : 'Channel is not blocked',
                 ruleApplied: 'blacklist_check'
             };
+        }
             
         default:
             // Should never reach here with TypeScript, but defensive programming
