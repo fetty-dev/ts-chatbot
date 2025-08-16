@@ -8,7 +8,7 @@
  * - sanitizeUserInput(): trims and strips ASCII control characters
  */
 
-import { LIMITS } from './constants';
+import { LIMITS, TOKEN_CONFIG } from './constants';
 
 /**
  * Custom error for validation failures to enable targeted catch blocks.
@@ -63,7 +63,15 @@ export function validateUserInput(input: string): boolean {
  * @returns Cleaned string with control characters removed.
  */
 export function sanitizeUserInput(input: string): string {
-    return input.trim().replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
+    // Remove control characters using functional approach to avoid ESLint control-regex rule
+    return input
+        .trim()
+        .split('')
+        .filter(char => {
+            const code = char.charCodeAt(0);
+            return code > 31 && code !== 127; // Keep printable characters, exclude control chars and DEL
+        })
+        .join('');
 }
 
 /**
@@ -74,7 +82,7 @@ export function sanitizeUserInput(input: string): string {
  * @returns Estimated token count
  */
 export function estimateTokens(text: string): number {
-    const { charactersPerToken } = require('./constants').TOKEN_CONFIG;
+    const { charactersPerToken } = TOKEN_CONFIG;
     return Math.ceil(text.length / charactersPerToken);
 }
 

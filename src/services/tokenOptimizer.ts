@@ -19,7 +19,7 @@
 import type { UserMemory, RecentMessage, EmotionalMoment } from '../types';
 import { estimateTokens } from '../utils/validation';
 import { logger } from '../utils/logger';
-import { BOT_CONFIG, CLAUDE_CONFIG } from '../utils/constants';
+import { CLAUDE_CONFIG } from '../utils/constants';
 
 /**
  * Token optimization configuration with different efficiency levels
@@ -192,7 +192,7 @@ function selectPersonalDetails(
     limit: number,
     tokenBudget: number
 ): string | null {
-    if (personalDetails.length === 0 || limit === 0) return null;
+    if (!personalDetails || personalDetails.length === 0 || limit === 0) return null;
     
     // Score details by relevance to current message
     const scoredDetails = personalDetails.map((detail, index) => ({
@@ -235,7 +235,7 @@ function selectConversationContext(
     tokenBudget: number,
     prioritizeRecent: boolean
 ): string | null {
-    if (recentMessages.length === 0 || limit === 0) return null;
+    if (!recentMessages || recentMessages.length === 0 || limit === 0) return null;
     
     let selectedMessages = recentMessages.slice(0, limit);
     
@@ -276,7 +276,7 @@ function selectEmotionalContext(
     emotionalMoments: EmotionalMoment[],
     tokenBudget: number
 ): string | null {
-    if (emotionalMoments.length === 0) return null;
+    if (!emotionalMoments || emotionalMoments.length === 0) return null;
     
     // Take most recent significant moments
     const significantMoments = emotionalMoments
@@ -416,6 +416,9 @@ export function getOptimizedClaudeConfig(): typeof CLAUDE_CONFIG {
         temperature: 0.7 // Keep personality temperature
     };
 }
+
+// Export internal functions for testing
+export { calculateRelevanceScore, selectPersonalDetails as selectRelevantPersonalDetails, selectConversationContext as selectRelevantMessages };
 
 // Export types
 export type { TokenConfig, TokenAnalytics };
